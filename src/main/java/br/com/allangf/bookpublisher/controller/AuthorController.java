@@ -2,6 +2,7 @@ package br.com.allangf.bookpublisher.controller;
 
 import br.com.allangf.bookpublisher.domain.entity.dao.AuthorDAO;
 import br.com.allangf.bookpublisher.domain.entity.dto.AuthorRequestDTO;
+import br.com.allangf.bookpublisher.domain.entity.dto.AuthorResponseDTO;
 import br.com.allangf.bookpublisher.service.AuthorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,29 +29,29 @@ public class AuthorController {
 
     @PostMapping
     @Operation(summary = "Create a new author")
-    public ResponseEntity<AuthorDAO> createAuthor(@RequestBody AuthorRequestDTO authorRequestDTO) {
-        AuthorDAO createdAuthor = authorService.createAuthor(authorRequestDTO);
+    public ResponseEntity<AuthorResponseDTO> createAuthor(@RequestBody AuthorRequestDTO authorRequestDTO) {
+        AuthorResponseDTO createdAuthor = authorService.createAuthor(authorRequestDTO);
         return new ResponseEntity<>(createdAuthor, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Find author by id")
-    public ResponseEntity<AuthorDAO> getAuthorById(@PathVariable Long id) {
-        AuthorDAO author = authorService.findById(id);
+    public ResponseEntity<AuthorResponseDTO> getAuthorById(@PathVariable Long id) {
+        AuthorResponseDTO author = authorService.findById(id);
         return new ResponseEntity<>(author, HttpStatus.OK);
     }
 
     @GetMapping("/name/{name}")
     @Operation(summary = "Find Author by name")
-    public ResponseEntity<AuthorDAO> getAuthorByName(@PathVariable String name) {
-        AuthorDAO author = authorService.findByName(name);
+    public ResponseEntity<AuthorResponseDTO> getAuthorByName(@PathVariable String name) {
+        AuthorResponseDTO author = authorService.findByName(name);
         return new ResponseEntity<>(author, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Update author")
-    public ResponseEntity<AuthorDAO> updateAuthor(@PathVariable Long id, @RequestBody AuthorRequestDTO authorRequestDTO) {
-        AuthorDAO updatedAuthor = authorService.updateById(id, authorRequestDTO);
+    public ResponseEntity<AuthorResponseDTO> updateAuthor(@PathVariable Long id, @RequestBody AuthorRequestDTO authorRequestDTO) {
+        AuthorResponseDTO updatedAuthor = authorService.updateById(id, authorRequestDTO);
         return new ResponseEntity<>(updatedAuthor, HttpStatus.OK);
     }
 
@@ -63,8 +64,8 @@ public class AuthorController {
 
     @GetMapping
     @Operation(summary = "Find all author")
-    public ResponseEntity<List<AuthorDAO>> getAllAuthors() {
-        List<AuthorDAO> authors = authorService.getAllAuthors();
+    public ResponseEntity<List<AuthorResponseDTO>> getAllAuthors() {
+        List<AuthorResponseDTO> authors = authorService.getAllAuthors();
         return new ResponseEntity<>(authors, HttpStatus.OK);
     }
 }

@@ -12,7 +12,6 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-@JsonIgnoreProperties("author.books")
 public class AuthorDAO {
 
     @Id
