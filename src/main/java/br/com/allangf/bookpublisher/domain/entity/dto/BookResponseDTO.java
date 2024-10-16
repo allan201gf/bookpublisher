@@ -1,26 +1,17 @@
-package br.com.allangf.bookpublisher.domain.entity;
+package br.com.allangf.bookpublisher.domain.entity.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import jakarta.persistence.*;
 
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class BookDAO {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class BookResponseDTO {
     private Long id;
-
     private String title;
     private String description;
-
-    @ManyToOne
-    private AuthorDAO author;
-
+    private AuthorResponseDTO author;
 }

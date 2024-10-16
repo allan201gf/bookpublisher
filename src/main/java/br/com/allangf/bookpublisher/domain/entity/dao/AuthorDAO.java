@@ -1,10 +1,8 @@
-package br.com.allangf.bookpublisher.domain.entity;
+package br.com.allangf.bookpublisher.domain.entity.dao;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -13,13 +11,15 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
+@JsonIgnoreProperties("author.books")
 public class AuthorDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome;
+    private String name;
 
     @OneToMany(mappedBy = "author")
     private List<BookDAO> books;
