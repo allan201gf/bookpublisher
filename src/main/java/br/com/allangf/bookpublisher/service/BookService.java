@@ -47,6 +47,12 @@ public class BookService {
         return BookMapper.daoToResponseDto(bookDAO);
     }
 
+    public BookResponseDTO getBookByTitle(String title) {
+        BookDAO bookDAO = bookRepository.findByTitle(title)
+                .orElseThrow(() -> new RuntimeException("tratar erro"));
+        return BookMapper.daoToResponseDto(bookDAO);
+    }
+
     public BookResponseDTO updateBook(Long id, BookRequestDTO bookRequestDTO) {
         BookDAO book = bookRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("tratar erro"));

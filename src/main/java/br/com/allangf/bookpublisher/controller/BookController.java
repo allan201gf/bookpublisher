@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/book/v1")
 @AllArgsConstructor
-@Tag(name = "Books")
+@Tag(name = "Books", description = "Book operations")
 public class BookController {
 
     @Autowired
@@ -33,6 +33,13 @@ public class BookController {
     @Operation(summary = "Find book by id")
     public ResponseEntity<BookResponseDTO> getBookById(@PathVariable Long id) {
         BookResponseDTO book = bookService.getBookById(id);
+        return new ResponseEntity<>(book, HttpStatus.OK);
+    }
+
+    @GetMapping("/title/{title}")
+    @Operation(summary = "Find book by title")
+    public ResponseEntity<BookResponseDTO> getBookByTitle(@PathVariable String title) {
+        BookResponseDTO book = bookService.getBookByTitle(title);
         return new ResponseEntity<>(book, HttpStatus.OK);
     }
 

@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/author/v1")
 @AllArgsConstructor
-@Tag(name = "Author")
+@Tag(name = "Author", description = "Author operations")
 public class AuthorController {
 
     @Autowired
