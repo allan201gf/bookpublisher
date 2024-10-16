@@ -3,11 +3,14 @@ package br.com.allangf.bookpublisher.service;
 import br.com.allangf.bookpublisher.domain.entity.dao.AuthorDAO;
 import br.com.allangf.bookpublisher.domain.entity.dao.BookDAO;
 import br.com.allangf.bookpublisher.domain.entity.dto.BookRequestDTO;
+import br.com.allangf.bookpublisher.domain.entity.dto.BookResponseDTO;
 import br.com.allangf.bookpublisher.domain.repository.AuthorRepository;
 import br.com.allangf.bookpublisher.domain.repository.BookRepository;
+import br.com.allangf.bookpublisher.mapper.BookMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,7 +22,7 @@ public class BookService {
     @Autowired
     private AuthorRepository authorRepository;
 
-    public BookDAO createBook(BookRequestDTO bookRequestDTO) {
+    public BookResponseDTO createBook(BookRequestDTO bookRequestDTO) {
         AuthorDAO author = authorRepository.findById(bookRequestDTO.getAuthorId())
                 .orElseThrow(() -> new RuntimeException("tratar erro"));
 
@@ -28,19 +31,23 @@ public class BookService {
         book.setDescription(bookRequestDTO.getDescription());
         book.setAuthor(author);
 
-        return bookRepository.save(book);
+        return BookMapper.daoToResponseDto(bookRepository.save(book));
     }
 
-    public List<BookDAO> getAllBooks() {
-        return bookRepository.findAll();
+    public List<BookResponseDTO> getAllBooks() {
+        List<BookDAO> daoList = bookRepository.findAll();
+        List<BookResponseDTO> responseDTO = new ArrayList<>();
+        daoList.forEach(bookDAO -> responseDTO.add(BookMapper.daoToResponseDto(bookDAO)));
+        return responseDTO;
     }
 
-    public BookDAO getBookById(Long id) {
-        return bookRepository.findById(id)
+    public BookResponseDTO getBookById(Long id) {
+        BookDAO bookDAO = bookRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("tratar erro"));
+        return BookMapper.daoToResponseDto(bookDAO);
     }
 
-    public BookDAO updateBook(Long id, BookRequestDTO bookRequestDTO) {
+    public BookResponseDTO updateBook(Long id, BookRequestDTO bookRequestDTO) {
         BookDAO book = bookRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("tratar erro"));
 
@@ -53,7 +60,7 @@ public class BookService {
             book.setAuthor(author);
         }
 
-        return bookRepository.save(book);
+        return BookMapper.daoToResponseDto(bookRepository.save(book));
     }
 
     public void deleteBook(Long id) {
