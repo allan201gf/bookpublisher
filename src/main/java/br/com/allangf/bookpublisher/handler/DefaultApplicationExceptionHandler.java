@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.Map;
+
 @Slf4j
 @RestControllerAdvice
 @Order(Integer.MIN_VALUE)
@@ -20,7 +22,7 @@ public class DefaultApplicationExceptionHandler {
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ErrorDTO> handleNotFound(NotFoundException e, HttpServletRequest request) {
         HttpStatus status = HttpStatus.NOT_FOUND;
-        String trace = MDC.getCopyOfContextMap().get("traceId");
+        String trace = getTraceId();
         ErrorDTO errorDTO = new ErrorDTO();
         errorDTO.setTitle("Not Found");
         errorDTO.setDescription(e.getMessage());
@@ -32,8 +34,8 @@ public class DefaultApplicationExceptionHandler {
 
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<ErrorDTO> handleBadRequest(BadRequestException e, HttpServletRequest request) {
-        HttpStatus status = HttpStatus.NOT_FOUND;
-        String trace = MDC.getCopyOfContextMap().get("traceId");
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        String trace = getTraceId();
         ErrorDTO errorDTO = new ErrorDTO();
         errorDTO.setTitle("Bad Request");
         errorDTO.setDescription(e.getMessage());
@@ -43,4 +45,8 @@ public class DefaultApplicationExceptionHandler {
         return new ResponseEntity<>(errorDTO, status);
     }
 
+    private String getTraceId() {
+        Map<String, String> contextMap = MDC.getCopyOfContextMap();
+        return contextMap != null ? contextMap.get("traceId") : null;
+    }
 }
