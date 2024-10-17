@@ -1,12 +1,12 @@
 package br.com.allangf.bookpublisher.controller;
 
-import br.com.allangf.bookpublisher.domain.entity.dao.AuthorDAO;
 import br.com.allangf.bookpublisher.domain.entity.dto.AuthorRequestDTO;
 import br.com.allangf.bookpublisher.domain.entity.dto.AuthorResponseDTO;
 import br.com.allangf.bookpublisher.service.AuthorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +18,7 @@ import java.util.List;
 @RequestMapping("/author/v1")
 @AllArgsConstructor
 @Tag(name = "Author", description = "Author operations")
+@Slf4j
 public class AuthorController {
 
     @Autowired

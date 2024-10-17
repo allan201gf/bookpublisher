@@ -4,6 +4,9 @@ server:
     context-path: /bookpublisher
 
 spring:
+  sleuth:
+    sampler:
+      probability: 1.0
   datasource:
     url: jdbc:h2:mem:testdb
     driver-class-name: org.h2.Driver
@@ -15,7 +18,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
 
 management:
   endpoints:
@@ -24,3 +27,7 @@ management:
         include: "*"
   health:
     show-details: always
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %X{uuid} - %msg%n"
