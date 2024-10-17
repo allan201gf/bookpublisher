@@ -2,10 +2,7 @@ package br.com.allangf.bookpublisher.domain.entity.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -14,6 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@ToString
 public class AuthorResponseDTO {
     private Long id;
     private String name;

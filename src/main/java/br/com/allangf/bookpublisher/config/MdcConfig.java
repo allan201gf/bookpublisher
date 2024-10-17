@@ -19,7 +19,7 @@ public class MdcConfig extends OncePerRequestFilter {
             throws ServletException, IOException {
         try {
             String uuid = UUID.randomUUID().toString();
-            MDC.put("uuid", uuid);
+            MDC.put("traceId", uuid);
             filterChain.doFilter(request, response);
         } finally {
             MDC.clear();

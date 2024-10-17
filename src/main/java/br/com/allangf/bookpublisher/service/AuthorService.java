@@ -5,6 +5,8 @@ import br.com.allangf.bookpublisher.domain.entity.dto.AuthorRequestDTO;
 import br.com.allangf.bookpublisher.domain.entity.dto.AuthorResponseDTO;
 import br.com.allangf.bookpublisher.domain.repository.AuthorRepository;
 import br.com.allangf.bookpublisher.mapper.AuthorMapper;
+import jakarta.ws.rs.BadRequestException;
+import jakarta.ws.rs.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +21,7 @@ public class AuthorService {
 
     public AuthorResponseDTO createAuthor(AuthorRequestDTO authorRequestDTO) {
         if (repository.findByName(authorRequestDTO.getName()).isPresent()) {
-            throw new RuntimeException("tratar erro");
+            throw new BadRequestException("Author name already registered");
         }
 
         AuthorDAO authorDAO = AuthorDAO.builder().name(authorRequestDTO.getName()).books(new ArrayList<>()).build();
@@ -29,18 +31,18 @@ public class AuthorService {
     }
 
     public AuthorResponseDTO findById(Long id) {
-        AuthorDAO authorDAO = repository.findById(id).orElseThrow(() -> new RuntimeException("tratar erro"));
+        AuthorDAO authorDAO = repository.findById(id).orElseThrow(() -> new NotFoundException("Author id not found"));
         return AuthorMapper.daoToResponseDto(authorDAO);
     }
 
     public AuthorResponseDTO findByName(String name) {
-        AuthorDAO authorDAO = repository.findByName(name).orElseThrow(() -> new RuntimeException("tratar erro"));
+        AuthorDAO authorDAO = repository.findByName(name).orElseThrow(() -> new NotFoundException("Author id not found"));
         return AuthorMapper.daoToResponseDto(authorDAO);
     }
 
     public AuthorResponseDTO updateById(Long id, AuthorRequestDTO authorRequestDTO) {
         AuthorDAO author = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("tratar erro"));
+                .orElseThrow(() -> new NotFoundException("Author id not found"));
 
         author.setName(authorRequestDTO.getName());
 
@@ -49,7 +51,7 @@ public class AuthorService {
 
     public void deleteById(Long id) {
         AuthorDAO author = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("tratar erro"));
+                .orElseThrow(() -> new NotFoundException("Author id not found"));
 
         repository.delete(author);
     }
