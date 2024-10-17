@@ -16,6 +16,6 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AuthorResponseDTO {
     private Long id;
-    private String nome;
+    private String name;
     private List<BookResponseDTO> books;
 }

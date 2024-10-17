@@ -15,7 +15,7 @@ public class BookMapper {
         if (bookDAO.getAuthor() != null) {
             AuthorResponseDTO authorResponse = new AuthorResponseDTO();
             authorResponse.setId(bookDAO.getAuthor().getId());
-            authorResponse.setNome(bookDAO.getAuthor().getName());
+            authorResponse.setName(bookDAO.getAuthor().getName());
             responseDTO.setAuthor(authorResponse);
         }
 

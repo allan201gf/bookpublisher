@@ -18,11 +18,11 @@ public class AuthorService {
     private AuthorRepository repository;
 
     public AuthorResponseDTO createAuthor(AuthorRequestDTO authorRequestDTO) {
-        if (repository.findByName(authorRequestDTO.getNome()).isPresent()) {
+        if (repository.findByName(authorRequestDTO.getName()).isPresent()) {
             throw new RuntimeException("tratar erro");
         }
 
-        AuthorDAO authorDAO = AuthorDAO.builder().name(authorRequestDTO.getNome()).books(new ArrayList<>()).build();
+        AuthorDAO authorDAO = AuthorDAO.builder().name(authorRequestDTO.getName()).books(new ArrayList<>()).build();
         repository.save(authorDAO);
 
         return AuthorMapper.daoToResponseDto(authorDAO);
@@ -42,7 +42,7 @@ public class AuthorService {
         AuthorDAO author = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("tratar erro"));
 
-        author.setName(authorRequestDTO.getNome());
+        author.setName(authorRequestDTO.getName());
 
         return AuthorMapper.daoToResponseDto(repository.save(author));
     }

@@ -11,6 +11,6 @@ import lombok.Setter;
 @Setter
 public class AuthorRequestDTO {
 
-    private String nome;
+    private String name;
 
 }

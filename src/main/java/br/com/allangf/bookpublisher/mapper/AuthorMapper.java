@@ -12,7 +12,7 @@ public class AuthorMapper {
     public static AuthorResponseDTO daoToResponseDto(AuthorDAO authorDAO) {
         AuthorResponseDTO responseDTO = new AuthorResponseDTO();
         responseDTO.setId(authorDAO.getId());
-        responseDTO.setNome(authorDAO.getName());
+        responseDTO.setName(authorDAO.getName());
 
         if (authorDAO.getBooks() != null) {
             List<BookResponseDTO> bookResponseList = authorDAO.getBooks().stream().map(book -> {
