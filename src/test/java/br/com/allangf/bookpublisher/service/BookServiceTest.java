@@ -143,7 +143,6 @@ class BookServiceTest {
 
     @Test
     void ShouldUpdateBook() {
-        // Mockando o autor
         AuthorDAO authorDAO = new AuthorDAO();
         authorDAO.setId(1L);
         authorDAO.setName("Author Name");
